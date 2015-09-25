@@ -9,3 +9,7 @@ set -x ___fish_git_prompt_color_stagedstate (set_color green)
 set -x ___fish_git_prompt_color_stagedstate_done (set_color normal)
 
 fish_vi_mode
+
+eval (hub alias -s)
+# complete --command hub --wraps git
+# complete --command g --wraps git
