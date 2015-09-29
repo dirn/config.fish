@@ -27,6 +27,9 @@ function fish_right_prompt --description 'Write out the right prompt'
     end
 
     if set -q __fish_vi_mode
+        set -l __fish_mode_prompt_insert
+        set -l __fish_mode_prompt_normal
+        set -l __fish_mode_prompt_visual
         if test -z $__fish_mode_prompt_insert
             if test $columns -lt 120
                 set __fish_mode_prompt_insert '[I]'
@@ -50,6 +53,8 @@ function fish_right_prompt --description 'Write out the right prompt'
         end
 
         echo ' '
+        set -l __fish_mode_background
+        set -l __fish_mode_prompt_text
         switch $fish_bind_mode
             case default
                 set __fish_mode_background red
