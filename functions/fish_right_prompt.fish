@@ -8,22 +8,17 @@ function fish_right_prompt --description 'Write out the right prompt'
         set_color normal
     end
 
-    set -l battery (pmset -g batt | egrep "([0-9]+\%).*" -o | cut -f1 -d"%")
-    if test $battery -lt 40
-        set __fish_battery_color white
-        set __fish_battery_background red
-    else
-        set __fish_battery_color white
-        set __fish_battery_background blue
-    end
+    set -l battery_tmp (pmset -g batt | egrep "([0-9]+\%).*" -o)
+    set -l battery_pct (echo $battery_tmp | cut -f1 -d"%")
+    set -l battery_state (echo $battery_tmp | cut -f2 -d" " | cut -f1 -d";")
 
-    set_color --bold $__fish_battery_background --background normal
-    echo ""
-    set_color --bold $__fish_battery_color --background $__fish_battery_background
-    if test $columns -lt 120
-        echo "$battery%"
-    else
-        echo " $battery%"
+    switch $battery_state
+        case "discharging"
+            if test $battery_pct -lt 40
+                set_color --bold red
+            end
+            echo "$battery_pct%"
+            set_color normal
     end
 
     if set -q __fish_vi_mode
@@ -66,8 +61,6 @@ function fish_right_prompt --description 'Write out the right prompt'
                 set __fish_mode_background magenta
                 set __fish_mode_prompt_text $__fish_mode_prompt_visual
         end
-        set_color --bold $__fish_mode_background --background $__fish_battery_background
-        echo ""
         set_color --bold white --background $__fish_mode_background
         echo "$__fish_mode_prompt_text"
         set_color normal
