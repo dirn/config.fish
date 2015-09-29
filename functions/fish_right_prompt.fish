@@ -29,21 +29,21 @@ function fish_right_prompt --description 'Write out the right prompt'
             if test $columns -lt 120
                 set __fish_mode_prompt_insert '[I]'
             else
-                set __fish_mode_prompt_insert ' [INSERT] '
+                set __fish_mode_prompt_insert '[INSERT]'
             end
         end
         if test -z $__fish_mode_prompt_normal
             if test $columns -lt 120
                 set __fish_mode_prompt_normal '[N]'
             else
-                set __fish_mode_prompt_normal ' [NORMAL] '
+                set __fish_mode_prompt_normal '[NORMAL]'
             end
         end
         if test -z $__fish_mode_prompt_visual
             if test $columns -lt 120
                 set __fish_mode_prompt_visual '[V]'
             else
-                set __fish_mode_prompt_visual ' [VISUAL] '
+                set __fish_mode_prompt_visual '[VISUAL]'
             end
         end
 
